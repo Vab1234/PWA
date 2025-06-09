@@ -14,9 +14,11 @@ export default function Login() {
 
   const handleLogin = async () => {
     const res = await axios.post(BASE_URL + '/login', { email, password } , {withCredentials: true})
-    console.log(res.data)
-    dispatch(addUser(res.data));
-    localStorage.setItem("user", JSON.stringify(userData));
+    // console.log(res.data)
+    const {user , token} = res.data;
+    dispatch(addUser(user));
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("token" , token);
     navigate('/')
   }
 

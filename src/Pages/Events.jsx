@@ -6,7 +6,10 @@ export default function Events() {
   const [events, setEvents] = useState([]);
 
   const fetchEvents = async () => {
-    const res = await axios.get(BASE_URL + "/events" , {withCredentials : true});
+    const token = localStorage.getItem("token")
+    const res = await axios.get(BASE_URL + "/events" ,{ headers: {
+    Authorization: `Bearer ${token}`
+  }});
     setEvents(res.data)
   }
 
@@ -15,7 +18,7 @@ export default function Events() {
   }, [])
 
   const register = async (id) => {
-    await axios.post(`/event/${id}/register`)
+    await axios.post(BASE_URL + `/event/${id}/register` , { withCredentials : true })
     alert('Registered')
   }
 

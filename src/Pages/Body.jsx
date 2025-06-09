@@ -13,8 +13,13 @@ const Body = () => {
 
     const fetchProfile = async () => {
         try{
-            const res = await axios.get(BASE_URL + "/profile/view" , {
-                withCredentials : true,
+            const token = localStorage.getItem("token");
+            if (!token) return navigate("/login");
+
+            const res = await axios.get(BASE_URL + "/profile/view", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             });
             dispatch(addUser(res.data));
         } catch(e){
@@ -26,7 +31,12 @@ const Body = () => {
     }
 
     useEffect(() => {
-        fetchProfile();
+        const userInStorage = localStorage.getItem("user");
+        if (userInStorage) {
+            dispatch(addUser(JSON.parse(userInStorage)));
+        } else {
+            fetchProfile(); // fallback to cookie-based auth
+        }
     } , []);
 
     return(
