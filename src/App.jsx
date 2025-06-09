@@ -1,0 +1,33 @@
+import React from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import Login from './Pages/Login'
+import Signup from './Pages/SignUp'
+import Events from './Pages/Events'
+import QRScan from './pages/QRScan'
+import LogoutButton from './Logout'
+import './App.css'
+import Body from './Pages/Body'
+import {Provider} from "react-redux";
+import appStore from './utils/appStore'
+
+function App() {
+  const isLoggedIn = localStorage.getItem('token')
+  return (
+    <>
+    <Provider store = {appStore}>
+      <BrowserRouter basename='/'>
+        <Routes>
+          <Route path="/" element = {<Body />}>
+            <Route path = "/" element = {<Events />}/>
+            <Route path = "/login" element = {<Login />}/>
+            <Route path = "/signup" element = {<Signup />}/>
+            <Route path = "/qr" element = {<QRScan />}/>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
+    </>
+  )
+}
+
+export default App

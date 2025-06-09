@@ -1,0 +1,1 @@
+export const BASE_URL = "https://event-backend-phjw.onrender.com"
