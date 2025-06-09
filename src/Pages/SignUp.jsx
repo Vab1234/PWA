@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { BASE_URL } from '../utils/constants'
 
 export default function Signup() {
   const [name, setName] = useState('')
@@ -9,7 +10,7 @@ export default function Signup() {
   const navigate = useNavigate()
 
   const handleSignup = async () => {
-    await axios.post('/register', { name, email, password })
+    await axios.post(BASE_URL + '/register', { name, email, password })
     navigate('/login')
   }
 

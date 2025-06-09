@@ -7,7 +7,7 @@ export default function Events() {
 
   const fetchEvents = async () => {
     const token = localStorage.getItem("token")
-    const res = await axios.get(BASE_URL + "/events" ,{ headers: {
+    const res = await axios.get(BASE_URL + "/events" , { headers: {
     Authorization: `Bearer ${token}`
   }});
     setEvents(res.data)
@@ -18,16 +18,21 @@ export default function Events() {
   }, [])
 
   const register = async (id) => {
-    await axios.post(BASE_URL + `/event/${id}/register` , { withCredentials : true })
+    const token = localStorage.getItem("token");
+    const res = await axios.post(BASE_URL + `/event/${id}/register` , {}, {
+      headers: {
+        Authorization : `Bearer ${token}`
+      }
+    });
     alert('Registered')
   }
 
   return (
     <div>
       <h2 className='text-3xl font-bold '>Events</h2>
-      <div className='flex gap-10 mt-10 sm:flex-wrap'>
+      <div className='flex gap-10 mt-10 xs:flex-wrap'>
         {events.map((e) => (
-            <div className="card bg-base-300 shadow-sm px-0 ">
+            <div className="card bg-base-300 shadow-sm px-0 justify-center">
               <figure>
                 <img
                   src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -35,9 +40,8 @@ export default function Events() {
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{e.name}</h2>
-                <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
                 <div className="card-actions justify-end">
-                  <button className="btn btn-primary">Register</button>
+                  <button className="btn btn-primary" onClick={() => register(e._id)}>Register</button>
                 </div>
               </div>
             </div>

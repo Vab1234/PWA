@@ -1,7 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './Pages/Login'
-import Signup from './Pages/SignUp'
 import Events from './Pages/Events'
 import QRScan from './Pages/QrScan'
 import LogoutButton from './Logout'
@@ -20,7 +19,6 @@ function App() {
           <Route path="/" element = {<Body />}>
             <Route path = "/" element = {<Events />}/>
             <Route path = "/login" element = {<Login />}/>
-            <Route path = "/signup" element = {<Signup />}/>
             <Route path = "/qr" element = {<QRScan />}/>
           </Route>
         </Routes>
