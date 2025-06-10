@@ -8,6 +8,7 @@ import './App.css'
 import Body from './Pages/Body'
 import {Provider} from "react-redux";
 import appStore from './utils/appStore'
+import EventMap from './Pages/EventMap'
 
 function App() {
   const isLoggedIn = localStorage.getItem('token')
@@ -17,7 +18,8 @@ function App() {
       <BrowserRouter basename='/'>
         <Routes>
           <Route path="/" element = {<Body />}>
-            <Route path = "/" element = {<Events />}/>
+            <Route path = "/" element = {<EventMap />}/>
+            <Route path = "/events" element = {<Events />}/>
             <Route path = "/login" element = {<Login />}/>
             <Route path = "/qr" element = {<QRScan />}/>
           </Route>
