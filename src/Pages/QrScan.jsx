@@ -1,16 +1,19 @@
-// File: src/pages/QRScan.jsx
 import React, { useEffect, useRef } from 'react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import axios from 'axios';
+import { BASE_URL } from '../utils/constants';
 
 export default function QRScan() {
   const scannerRef = useRef(null);
   const scannerInstance = useRef(null);
 
   const handleScan = async (text) => {
+    const token = localStorage.getItem("token");
     try {
       const { eventId, expiresAt } = JSON.parse(text);
-      await axios.post('/event/mark-attendance-via-qr', { eventId, expiresAt });
+      await axios.post(BASE_URL + '/event/mark-attendance-via-qr', { eventId, expiresAt }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       alert('Attendance marked successfully!');
     } catch (error) {
       console.error('Error parsing QR code or marking attendance:', error);
@@ -28,12 +31,8 @@ export default function QRScan() {
     );
 
     scannerInstance.current.render(
-      (decodedText, decodedResult) => {
-        handleScan(decodedText);
-      },
-      (errorMessage) => {
-        // optional: handle scanning errors here
-      }
+      (decodedText, decodedResult) => handleScan(decodedText),
+      (errorMessage) => {}
     );
 
     return () => {
@@ -42,9 +41,9 @@ export default function QRScan() {
   }, []);
 
   return (
-    <div>
-      <h2>Scan QR</h2>
-      <div id="reader" ref={scannerRef} />
+    <div className="p-4">
+      <h2 className="text-2xl font-bold mb-4 text-center">Scan QR</h2>
+      <div id="reader" ref={scannerRef} className="mx-auto max-w-xs" />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { addUser } from "../utils/userSlice";
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const Body = () => { 
     const dispatch = useDispatch();
@@ -41,6 +42,7 @@ const Body = () => {
 
     return(
         <>
+            <Navbar />
             <Outlet />
             {token && <div className="dock bg-neutral text-neutral-content">
                 <button>
