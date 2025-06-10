@@ -6,12 +6,16 @@ const Navbar = () => {
   const user = useSelector((store) => store.user);
 
   return (
-    <div className="navbar bg-base-300 shadow-md px-4 py-2 flex justify-between items-center">
-      <h1 className="text-lg font-bold text-primary">QR Attendance</h1>
-      <div className="flex-none">
-        <LogoutButton />
-      </div>
-    </div>
+    <>
+    {user &&
+        <div className="navbar bg-base-300 shadow-md px-4 py-2 flex justify-between items-center">
+            <h1 className="text-lg  text-amber-100">Hello {user.name}</h1>
+            <div className="flex-none">
+                <LogoutButton />
+            </div>
+        </div>
+    }
+    </>
   );
 };
 
